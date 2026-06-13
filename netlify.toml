@@ -24,3 +24,6 @@
   from = "/*"
   to = "/.netlify/functions/server"
   status = 200
+
+[build.environment]
+  SECRETS_SCAN_OMIT_KEYS = "SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY"
