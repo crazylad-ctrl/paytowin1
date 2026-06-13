@@ -64,6 +64,19 @@ function AuthPage() {
     if (error) setErr(error.message);
   };
 
+  const signInAnonymously = async () => {
+    setErr(null); setBusy(true);
+    try {
+      const { error } = await supabase.auth.signInAnonymously();
+      if (error) throw error;
+      navigate({ to: "/dashboard" });
+    } catch (e: any) {
+      setErr(e.message ?? "Failed to sign in anonymously");
+    } finally {
+      setBusy(false);
+    }
+  };
+
   return (
     <div className="min-h-screen px-5 py-8">
       <div className="mx-auto max-w-md">
@@ -108,6 +121,16 @@ function AuthPage() {
             </form>
           )}
         </div>
+
+        <div className="mt-5 flex items-center gap-3 text-xs uppercase tracking-widest text-muted-foreground">
+          <div className="flex-1 border-t border-foreground/20" />or<div className="flex-1 border-t border-foreground/20" />
+        </div>
+
+        <button onClick={signInAnonymously} disabled={busy} className="btn-retro-ghost w-full mt-4 disabled:opacity-50">
+          {busy ? "..." : "Continue without account →"}
+        </button>
+
+        {err && <p className="mt-3 text-sm bg-destructive text-destructive-foreground border border-foreground rounded px-3 py-2">{err}</p>}
       </div>
     </div>
   );
