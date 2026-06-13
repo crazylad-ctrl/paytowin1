@@ -1,0 +1,194 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ink: var(--ink);
+  --color-paper: var(--paper);
+  --color-stamp: var(--stamp);
+  --color-highlight: var(--highlight);
+  --color-gold: var(--gold);
+  --color-silver: var(--silver);
+  --color-bronze: var(--bronze);
+  --font-display: "VT323", "Courier New", monospace;
+  --font-serif: "DM Serif Display", Georgia, serif;
+  --font-sans: "Space Mono", "Courier New", monospace;
+}
+
+:root {
+  --radius: 0.25rem;
+  --paper: oklch(0.96 0.025 85);
+  --ink: oklch(0.22 0.03 50);
+  --stamp: oklch(0.5 0.18 25);
+  --highlight: oklch(0.9 0.13 95);
+
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: oklch(0.98 0.02 85);
+  --card-foreground: var(--ink);
+  --popover: oklch(0.98 0.02 85);
+  --popover-foreground: var(--ink);
+  --primary: var(--ink);
+  --primary-foreground: var(--paper);
+  --secondary: oklch(0.92 0.03 85);
+  --secondary-foreground: var(--ink);
+  --muted: oklch(0.92 0.025 85);
+  --muted-foreground: oklch(0.45 0.03 50);
+  --accent: var(--stamp);
+  --accent-foreground: var(--paper);
+  --destructive: oklch(0.5 0.2 25);
+  --destructive-foreground: var(--paper);
+  --success: oklch(0.5 0.12 145);
+  --border: oklch(0.35 0.04 50);
+  --input: oklch(0.98 0.02 85);
+  --ring: var(--ink);
+
+  --gold: oklch(0.72 0.15 85);
+  --silver: oklch(0.72 0.02 250);
+  --bronze: oklch(0.55 0.12 55);
+}
+
+.dark { /* keep retro paper in dark too — single look */
+  --background: var(--paper);
+  --foreground: var(--ink);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html, body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    min-height: 100vh;
+  }
+  body {
+    background-image:
+      radial-gradient(oklch(0.22 0.03 50 / 0.06) 1px, transparent 1px),
+      linear-gradient(oklch(0.22 0.03 50 / 0.04) 1px, transparent 1px);
+    background-size: 4px 4px, 100% 28px;
+    background-position: 0 0, 0 0;
+  }
+  h1, h2, h3, h4 { font-family: var(--font-serif); letter-spacing: -0.01em; }
+}
+
+/* Paper card with hard ink border + offset shadow (retro sticker) */
+@utility paper {
+  background: var(--card);
+  border: 1.5px solid var(--ink);
+  border-radius: var(--radius);
+  box-shadow: 4px 4px 0 0 var(--ink);
+}
+@utility paper-soft {
+  background: var(--card);
+  border: 1.5px solid var(--ink);
+  border-radius: var(--radius);
+  box-shadow: 2px 2px 0 0 var(--ink);
+}
+@utility stamp-text {
+  color: var(--stamp);
+}
+@utility hl {
+  background: linear-gradient(transparent 60%, color-mix(in oklab, var(--highlight) 80%, transparent) 60%);
+  padding: 0 0.15em;
+}
+
+@utility btn-retro {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.4rem;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: var(--ink);
+  color: var(--paper);
+  border: 1.5px solid var(--ink);
+  border-radius: var(--radius);
+  box-shadow: 3px 3px 0 0 var(--ink);
+  cursor: pointer;
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+}
+@utility btn-retro-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.4rem;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1.5px solid var(--ink);
+  border-radius: var(--radius);
+  box-shadow: 3px 3px 0 0 var(--ink);
+  cursor: pointer;
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+}
+
+button.btn-retro:hover, a.btn-retro:hover,
+button.btn-retro-ghost:hover, a.btn-retro-ghost:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 0 var(--ink);
+}
+button.btn-retro:active, a.btn-retro:active,
+button.btn-retro-ghost:active, a.btn-retro-ghost:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 0 var(--ink);
+}
+
+@keyframes float-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+@utility animate-float-up { animation: float-up 0.35s ease-out both; }
+@utility animate-blink { animation: blink 1s steps(1) infinite; }
+
+/* legacy aliases so existing class names still render something coherent */
+@utility glass { background: var(--card); border: 1.5px solid var(--ink); border-radius: var(--radius); box-shadow: 3px 3px 0 0 var(--ink); }
+@utility glass-purple { background: var(--card); border: 1.5px dashed var(--ink); border-radius: var(--radius); }
+@utility neon-text { color: var(--ink); font-family: var(--font-serif); }
+@utility neon-text-purple { color: var(--stamp); font-family: var(--font-serif); }
+@utility neon-glow { box-shadow: 3px 3px 0 0 var(--ink); }
+@utility neon-glow-purple { box-shadow: 3px 3px 0 0 var(--stamp); }
+@utility btn-neon { display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.7rem 1.4rem;font-family:var(--font-display);font-size:1.25rem;letter-spacing:.06em;text-transform:uppercase;background:var(--ink);color:var(--paper);border:1.5px solid var(--ink);border-radius:var(--radius);box-shadow:3px 3px 0 0 var(--ink);cursor:pointer; }
+@utility btn-ghost-neon { display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.7rem 1.4rem;font-family:var(--font-display);font-size:1.15rem;letter-spacing:.06em;text-transform:uppercase;background:var(--paper);color:var(--ink);border:1.5px solid var(--ink);border-radius:var(--radius);box-shadow:3px 3px 0 0 var(--ink);cursor:pointer; }
+@utility grid-bg {
+  background-image:
+    linear-gradient(oklch(0.22 0.03 50 / 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, oklch(0.22 0.03 50 / 0.08) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
